@@ -151,6 +151,13 @@ def cria_vertices(texto):
         num_vertices = num_vertices[0:len(num_vertices)-1]
         num_vertices = int(num_vertices)
         rotulo_vertice = rotulo_vertice[1:len(rotulo_vertice)]
+
+        #Se o rótulo for uma String, retira as aspas da mesma. Se a string for de numeros, transforma para int
+        if len(rotulo_vertice) > 1 and rotulo_vertice[0] == '"':
+            rotulo_vertice = rotulo_vertice[1:-1]
+        else:
+            rotulo_vertice = int(rotulo_vertice)
+
         conj_vertices.append((num_vertices, rotulo_vertice))
 
     return conj_vertices
