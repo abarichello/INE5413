@@ -85,7 +85,6 @@ def ler(arquivo):
     Graph.num_vertices = ler_num_vertices(texto[0])
     Graph.conj_vertices = cria_vertices(texto)
     Graph.conj_arestas = define_arestas(texto)
-    print(Graph.conj_arestas)
 
 #Função auxiliar que lê o número de vértices do arquivo
 def ler_num_vertices(texto):
