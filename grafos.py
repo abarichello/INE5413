@@ -150,7 +150,7 @@ def cria_vertices(texto):
 
         num_vertices = num_vertices[0:len(num_vertices)-1]
         num_vertices = int(num_vertices)
-        rotulo_vertice = rotulo_vertice[2:len(rotulo_vertice)-1]
+        rotulo_vertice = rotulo_vertice[1:len(rotulo_vertice)]
         conj_vertices.append((num_vertices, rotulo_vertice))
 
     return conj_vertices
