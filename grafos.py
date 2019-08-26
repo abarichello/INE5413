@@ -3,11 +3,7 @@ from collections import namedtuple
 # Cria o grafo propriamente dito
 Graph = namedtuple("Graph", "num_vertices conj_vertices conj_arestas")
 
-<<<<<<< HEAD
-#Retorna o numero de vertices do grafo
-=======
 # Retorna o numero de vértices do grafo
->>>>>>> Add graph samples folder
 def qtdVertices():
     return Graph.num_vertices
 
@@ -208,8 +204,10 @@ def define_arestas(texto):
         if i > 0:
             for n in range(i):
                 for m in range(len(conj_arestas[n])):
-                    if conj_arestas[n][m][0][0] == i+1:
-                        conj_arestas[i].append(((n+1, getRotuloByNumber(n+1)), conj_arestas[n][m][1]))
+                    if conj_arestas[n][m][0][0] == i + 1:
+                        conj_arestas[i].append(
+                            ((n + 1, getRotuloByNumber(n + 1)), conj_arestas[n][m][1])
+                        )
                         if j == len(texto):
                             break
 
