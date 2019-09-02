@@ -1,3 +1,5 @@
+# Breadth First Search Algorithm
+
 import sys
 import os
 from typing import Tuple
@@ -33,7 +35,7 @@ def bfs(n_vertices: int) -> Tuple[dict, dict]:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: ./bfs.py <filename>")
+        print(f"Usage: ./{sys.argv[0]} <filename>")
         os._exit(-1)
 
     ler(sys.argv[1])

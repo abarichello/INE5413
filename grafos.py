@@ -78,7 +78,6 @@ def peso(u, v):
             return Graph.conj_arestas[x - 1][i][1]
         tam_arr = tam_arr + 1
         i = i + 1
-
     return result
 
 
