@@ -15,7 +15,6 @@ def floyd_warshall(graph: Graph) -> List[List[float]]:
         [inf for i in range(n_vertices)] for j in range(n_vertices)
     ]
 
-    pprint(graph.conj_arestas)
     for vertex in graph.conj_vertices:
         index = vertex[0] - 1
         dist[index][index] = 0
