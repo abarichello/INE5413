@@ -213,10 +213,12 @@ def define_arestas(texto):
 
     return conj_arestas
 
+# Retorn um vértice dado seu número
+def getVertexByNumber(n):
+    for i in Graph.conj_vertices:
+        if i[0] == n:
+            return i
 
 # Função auxiliar, que retorna o rótulo de um vértice dado seu número identificador
 def getRotuloByNumber(n):
-
-    for i in Graph.conj_vertices:
-        if i[0] == n:
-            return i[1]
+    return getVertexByNumber(n)[1]
