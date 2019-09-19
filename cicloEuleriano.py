@@ -45,23 +45,15 @@ def buscarSubcicloEuleriano(graph, vertice, visitado):
         if emb:
             return False, None
         else:
-            print( 'teste2')
             visitado[vu] = True
-            print(visitado)
-            print('vertice ', vertice)
-            print('u', u)
             vertice = u
-            print(vertice)
             ciclo.append(vertice)
-            print(ciclo)
-            print(vertice, t)
             break
         if vertice == t:
-            print('entrou')
             break
 
     vp = set(ciclo)
-    print(vp)
+
     for elemento in vp:
         nao_visitado = False
         for vizinho2 in graph.vizinhos(elemento):

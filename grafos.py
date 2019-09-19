@@ -1,14 +1,25 @@
 from collections import namedtuple
 
-# Cria o grafo propriamente dito
+#Cria o grafo propriamente dito
 Graph = namedtuple("Graph", "num_vertices conj_vertices conj_arestas")
 
-# Retorna o numero de vértices do grafo
+#Retorna o numero de vertices do grafo
+def getNum_vertices():
+    return Graph.num_vertices
+
+#Retorna o conjunto de vertices do grafo
+def getCon_Vertices():
+    return Graph.conj_vertices
+
+#Retorna o conjunto de arestas do grafo
+def getConj_Arestas():
+    return Graph.conj_arestas
+
+#Retorna o numero de vertices do grafo
 def qtdVertices():
     return Graph.num_vertices
 
-
-# Retorna a quantidade de arestas do grafo
+#Retorna a quantidade de arestas do grafo
 def qtdArestas():
 
     qtd = 0
@@ -18,49 +29,44 @@ def qtdArestas():
 
     return qtd
 
-
-# Retorna o grau do vértice desejado
+#Retorna o grau do vertice desejado
 def grau(v):
-    return len(Graph.conj_arestas[v[0] - 1])
+    return len(Graph.conj_arestas[v[0]-1])
 
-
-# Retorna o rótulo de um vértice
+#Retorna o rotulo de um vertice
 def rotulo(v):
-    print(v[1])
+    return(v[1])
 
-
-# Retorna os vértices vizinhos de um vértice
+#Retorna os vertices vizinhos de um vertice
 def vizinhos(v):
 
     vizinhos_final = []
-    vizinhos = Graph.conj_arestas[v[0] - 1]
+    vizinhos = Graph.conj_arestas[v[0]-1]
 
     for i in range(len(vizinhos)):
-        vizinhos_final.append(vizinhos[i][0])
+         vizinhos_final.append(vizinhos[i][0])
 
     return vizinhos_final
 
-
-# Retorna se há uma aresta conectando dois vértices
+#Retorna se ha uma aresta conectando dois vertices
 def haAresta(u, v):
 
-    x = u[0] if u[0] < v[0] else v[0]
-    i = 0
+        x = u[0] if u[0] < v[0] else v[0]
+        i = 0
 
-    if x == u[0]:
-        y = v
-    else:
-        y = u
+        if x == u[0]:
+            y = v
+        else:
+            y = u
 
-    while i < len(Graph.conj_arestas[x - 1]):
-        if Graph.conj_arestas[x - 1][i][0] == y:
-            return True
-        i = i + 1
+        while (i < len(Graph.conj_arestas[x-1])):
+            if Graph.conj_arestas[x-1][i][0][0] == y[0]:
+                return True
+            i = i+1
 
-    return False
+        return False
 
-
-# Retorna o peso de uma aresta
+#Retorna o peso de uma aresta
 def peso(u, v):
 
     x = u[0] if u[0] < v[0] else v[0]
@@ -73,16 +79,15 @@ def peso(u, v):
     else:
         y = u[0]
 
-    while tam_arr < len(Graph.conj_arestas[x - 1]):
-        if Graph.conj_arestas[x - 1][i][0][0] == y:
-            return Graph.conj_arestas[x - 1][i][1]
-        tam_arr = tam_arr + 1
-        i = i + 1
+    while (tam_arr < len(Graph.conj_arestas[x-1])):
+        if Graph.conj_arestas[x-1][i][0][0] == y:
+            return Graph.conj_arestas[x-1][i][1]
+        tam_arr = tam_arr+1
+        i = i+1
 
     return result
 
-
-# Lê o arquivo e define os atributos do grafo, funciona como um construtor
+#Le o arquivo e define os atributos do grafo, funciona como um construtor
 def ler(arquivo):
 
     file = open(arquivo, "r")
@@ -93,25 +98,26 @@ def ler(arquivo):
     Graph.conj_vertices = cria_vertices(texto)
     Graph.conj_arestas = define_arestas(texto)
 
+    return Graph
 
-# Função auxiliar que lê o número de vértices do arquivo
+#Funcao auxiliar que le o numero de vertices do arquivo
 def ler_num_vertices(texto):
 
     resultado = []
     temp = []
-    resultado_formatado = ""
+    resultado_formatado = ''
 
     for i in texto:
         temp.append(i)
 
     i = 0
 
-    while temp[i] != "\n":
+    while (temp[i] != '\n'):
 
-        while temp[i] != " " and len(resultado) == 0:
-            i = i + 1
+        while (temp[i] != ' ' and len(resultado) == 0):
+            i = i+1
 
-        i = i + 1
+        i = i+1
         resultado.append(temp[i])
 
     resultado.pop()
@@ -121,11 +127,10 @@ def ler_num_vertices(texto):
 
     return int(resultado_formatado)
 
-
-# Função auxiliar que define o conjunto de vértices do Grafo
+#Funcao auxiliar que define o conjunto de vertices do Grafo
 def cria_vertices(texto):
 
-    # Deixa na lista apenas o numero do vértice e seu respectivo rótulo
+#Deixa na lista apenas o numero do vertice e seu respectivo rotulo
     texto.pop(0)
     index = texto.index("*edges\n")
     texto = texto[0:index]
@@ -135,12 +140,12 @@ def cria_vertices(texto):
     for elemento in texto:
 
         contador = 0
-        num_vertices = ""
-        rotulo_vertice = ""
+        num_vertices = ''
+        rotulo_vertice = ''
         aux = False
         contador_interno = 0
 
-        while elemento[contador] != "\n":
+        while (elemento[contador] != '\n'):
 
             if aux == False:
                 num_vertices = num_vertices + elemento[contador]
@@ -150,26 +155,23 @@ def cria_vertices(texto):
                 rotulo_vertice = rotulo_vertice + elemento[contador]
                 contador_interno = contador + 1
 
-                while elemento[contador_interno] != "\n":
+                while (elemento[contador_interno] != '\n'):
                     rotulo_vertice = rotulo_vertice + elemento[contador_interno]
                     contador_interno = contador_interno + 1
                     contador = contador_interno - 1
 
-            contador = contador + 1
+            contador = contador+1
 
-        num_vertices = num_vertices[0 : len(num_vertices) - 1]
+        num_vertices = num_vertices[0:len(num_vertices)-1]
         num_vertices = int(num_vertices)
-        rotulo_vertice = rotulo_vertice[1 : len(rotulo_vertice)]
-
-        # Se o rótulo for uma String, retira as aspas da mesma. Se a string for de numeros, transforma para int
-        if len(rotulo_vertice) > 1 and rotulo_vertice[0] == '"':
+        rotulo_vertice = rotulo_vertice[1:len(rotulo_vertice)]
+        if rotulo_vertice[0] == '"' and rotulo_vertice[-1] == '"':
             rotulo_vertice = rotulo_vertice[1:-1]
         conj_vertices.append((num_vertices, rotulo_vertice))
 
     return conj_vertices
 
-
-# Função auxiliar que define o conjunto de arestas lendo-as do arquivo
+#Funcao auxiliar que define o conjunto de arestas lendo-as do arquivo
 def define_arestas(texto):
 
     contador = 0
@@ -179,42 +181,39 @@ def define_arestas(texto):
     for i in range(Graph.num_vertices):
         conj_arestas.append([])
 
-    while texto[contador] != "*edges\n":
-        contador = contador + 1
+    while (texto[contador] != '*edges\n'):
+        contador = contador+1
 
-    texto = texto[contador + 1 :]
+    texto = texto[contador+1:]
 
     for i in range(Graph.num_vertices):
-        aux = len(str(i + 1))
+        aux = len(str(i+1))
 
-        while j < len(texto) and int(texto[j][0:aux]) == i + 1:
+        while (j < len(texto) and int(texto[j][0:aux]) == i+1):
 
             espacos = []
 
             for k in range(len(texto[j])):
-                if texto[j][k] == " ":
+                if texto[j][k] == ' ':
                     espacos.append(k)
 
-            vertice_adj = int(texto[j][espacos[0] + 1 : espacos[1]])
-            peso = float(texto[j][espacos[1] + 1 :])
+            vertice_adj = int(texto[j][espacos[0]+1:espacos[1]])
+            peso = float(texto[j][espacos[1]+1:])
             rotulo = getRotuloByNumber(vertice_adj)
             conj_arestas[i].append(((vertice_adj, rotulo), peso))
-            j = j + 1
+            j = j+1
 
         if i > 0:
             for n in range(i):
                 for m in range(len(conj_arestas[n])):
-                    if conj_arestas[n][m][0][0] == i + 1:
-                        conj_arestas[i].append(
-                            ((n + 1, getRotuloByNumber(n + 1)), conj_arestas[n][m][1])
-                        )
+                    if conj_arestas[n][m][0][0] == i+1:
+                        conj_arestas[i].append(((n+1, getRotuloByNumber(n+1)), conj_arestas[n][m][1]))
                         if j == len(texto):
                             break
 
     return conj_arestas
 
-
-# Função auxiliar, que retorna o rótulo de um vértice dado seu número identificador
+#Funcao auxiliar, que retorna o rotulo de um vertice dado seu numero identificador
 def getRotuloByNumber(n):
 
     for i in Graph.conj_vertices:
