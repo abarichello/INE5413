@@ -190,14 +190,7 @@ def make_arcs_list(texto: List[str]):
             rotulo = getRotuloByNumber(vertice_adj)
             conj_arestas[i].append(((vertice_adj, rotulo), peso))
             j = j+1
-
-        # if i > 0:
-        #     for n in range(i):
-        #         for m in range(len(conj_arestas[n])):
-        #             if conj_arestas[n][m][0][0] == i+1:
-        #                 conj_arestas[i].append(((n+1, getRotuloByNumber(n+1)), conj_arestas[n][m][1]))
-        #                 if j == len(texto):
-        #                     break
+       
     return conj_arestas
 
 #Funcao auxiliar que define o conjunto de arestas lendo-as do arquivo
@@ -242,7 +235,7 @@ def define_arestas(texto):
 
     return conj_arestas
 
-# Retorn um vértice dado seu número
+# Retorna um vértice dado seu número
 def getVertexByNumber(n):
     for i in Graph.conj_vertices:
         if i[0] == n:
