@@ -1,4 +1,5 @@
 from collections import namedtuple
+from typing import List, Tuple
 
 #Cria o grafo propriamente dito
 Graph = namedtuple("Graph", "num_vertices conj_vertices conj_arestas")
@@ -93,45 +94,35 @@ def ler(arquivo):
     texto = file.readlines()
     file.close()
 
-    Graph.num_vertices = ler_num_vertices(texto[0])
+    Graph.num_vertices = read_total_vertices(texto[0])
     Graph.conj_vertices = cria_vertices(texto)
     Graph.conj_arestas = define_arestas(texto)
 
     return Graph
 
-#Funcao auxiliar que le o numero de vertices do arquivo
-def ler_num_vertices(texto):
+def read_directed(path: str):
+    file = open(path, "r")
+    contents = file.readlines()
+    file.close()
 
-    resultado = []
-    temp = []
-    resultado_formatado = ''
+    Graph.num_vertices = read_total_vertices(contents[0])
+    Graph.conj_vertices = cria_vertices(contents, directed=True)
+    Graph.conj_arestas = make_arcs_list(contents)
+    return Graph
 
-    for i in texto:
-        temp.append(i)
-
-    i = 0
-
-    while (temp[i] != '\n'):
-
-        while (temp[i] != ' ' and len(resultado) == 0):
-            i = i+1
-
-        i = i+1
-        resultado.append(temp[i])
-
-    resultado.pop()
-
-    for i in resultado:
-        resultado_formatado = resultado_formatado + i
-
-    return int(resultado_formatado)
+def read_total_vertices(text: str) -> int:
+    return int(text.replace("*vertices ", ""))
 
 #Funcao auxiliar que define o conjunto de vertices do Grafo
-def cria_vertices(texto):
+def cria_vertices(texto, directed=False):
 
 #Deixa na lista apenas o numero do vertice e seu respectivo rotulo
     texto.pop(0)
-    index = texto.index("*edges\n")
+
+    header_text = "*edges\n"
+    if directed:
+        header_text = "*arcs\n"
+    index = texto.index(header_text)
     texto = texto[0:index]
 
     conj_vertices = []
@@ -169,6 +160,45 @@ def cria_vertices(texto):
         conj_vertices.append((num_vertices, rotulo_vertice))
 
     return conj_vertices
+
+def make_arcs_list(texto: List[str]):
+    contador = 0
+    conj_arestas = []
+    j = 0
+
+    for i in range(Graph.num_vertices):
+        conj_arestas.append([])
+
+    while (texto[contador] != '*arcs\n'):
+        contador = contador+1
+
+    texto = texto[contador+1:]
+
+    for i in range(Graph.num_vertices):
+        aux = len(str(i+1))
+
+        while (j < len(texto) and int(texto[j][0:aux]) == i+1):
+
+            espacos = []
+
+            for k in range(len(texto[j])):
+                if texto[j][k] == ' ':
+                    espacos.append(k)
+
+            vertice_adj = int(texto[j][espacos[0]+1:espacos[1]])
+            peso = float(texto[j][espacos[1]+1:])
+            rotulo = getRotuloByNumber(vertice_adj)
+            conj_arestas[i].append(((vertice_adj, rotulo), peso))
+            j = j+1
+
+        # if i > 0:
+        #     for n in range(i):
+        #         for m in range(len(conj_arestas[n])):
+        #             if conj_arestas[n][m][0][0] == i+1:
+        #                 conj_arestas[i].append(((n+1, getRotuloByNumber(n+1)), conj_arestas[n][m][1]))
+        #                 if j == len(texto):
+        #                     break
+    return conj_arestas
 
 #Funcao auxiliar que define o conjunto de arestas lendo-as do arquivo
 def define_arestas(texto):
@@ -212,7 +242,6 @@ def define_arestas(texto):
 
     return conj_arestas
 
-<<<<<<< HEAD
 # Retorn um vértice dado seu número
 def getVertexByNumber(n):
     for i in Graph.conj_vertices:
@@ -220,8 +249,5 @@ def getVertexByNumber(n):
             return i
 
 # Função auxiliar, que retorna o rótulo de um vértice dado seu número identificador
-=======
-#Funcao auxiliar, que retorna o rotulo de um vertice dado seu numero identificador
->>>>>>> atualizacao relatorio/grafos/ciclo
 def getRotuloByNumber(n):
     return getVertexByNumber(n)[1]
