@@ -18,7 +18,7 @@ def visit_ot(current: int, visited: dict, sorted_vertices):
     sorted_vertices.insert(0, current)
 
 def topological_sort():
-    vertices = set(Graph.conj_vertices)
+    vertices = Graph.conj_vertices
 
     # configuring all vertices
     visited: dict = {vertex: False for vertex in vertices}
